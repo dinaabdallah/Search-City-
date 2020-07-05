@@ -1,0 +1,83 @@
+﻿
+<link href="~/Assets/Style/Style.css" rel="stylesheet" />
+
+
+<div class="row header">
+    <br />
+
+    <div class="col-lg-6 PageTitle"> Search Cities</div>
+
+</div>
+
+<div class="row">
+    @using (Html.BeginForm("", "", new { area = "" }, FormMethod.Post,
+        new { id = "SearchForm", @class = "SearchForm" }))
+    {
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-md-4">
+                
+                @Html.TextBox("City", "", new { @class = "textboxSearch form-control", @placeholder = "Search.." })
+
+               
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-primary" type="button" id="Search">Search</button>
+            </div>
+
+
+        </div>
+
+   
+        <div class="row ErrorText" style="display:none">
+            <label style="color: red">Plz enter the City Name</label>
+        </div>
+        <br />
+
+    }
+    <br /><br /><br />
+    <div class="row">
+        <table id="SearchTabel" cellspacing="0" class="SearchTabel">
+            <tbody></tbody>
+        </table>
+
+    </div>
+</div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $("#Search").click(function (e) {
+        debugger;
+        var CityName = $("#City").val();
+        if (CityName == "") {
+            $(".ErrorText").css('display', '');
+        } else {
+            $.ajax({
+                type: 'POST',
+                url: "GetCities",
+                dataType: 'json',
+                data: { CityName: CityName },
+                success: function (data) {
+
+                    $("#SearchTabel tbody").html('');
+                    var rows = '';
+                    $.each(data,
+                        function (i, item) {
+                            rows += "<tr><td> Name :</td><td>" + item.Name + "</td></tr><tr><td> Latitude :</td><td>" +
+                                item.Latitude + "</td></tr><tr><td> Longitude :</td><td>" +
+                                item.Longitude + "</td></tr><tr><td> Score :</td><td>" +
+                                item.Score + "</td></tr><tr><td>--------------------------</td></tr>"
+                                ;
+
+                        });
+
+                    $('#SearchTabel tbody').append(rows);
+                    $(".ErrorText").css('display', 'none');
+                    $("#City").val("");
+                }
+
+            });
+        }
+
+    });
+</script>

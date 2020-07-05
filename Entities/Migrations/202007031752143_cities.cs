@@ -1,0 +1,46 @@
+namespace Entities.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class cities : DbMigration
+    {
+        public override void Up()
+        {
+            CreateTable(
+                "dbo.Cities",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        CityName = c.String(maxLength: 200),
+                        CityCode = c.String(),
+                        Latitude = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        Longitude = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        CountryId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Countries", t => t.CountryId, cascadeDelete: true)
+                .Index(t => t.CountryId);
+            
+            CreateTable(
+                "dbo.Countries",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        CountryName = c.String(),
+                        CountryCode = c.String(maxLength: 30, fixedLength: true, unicode: false),
+                        alternateCountry = c.String(maxLength: 2, fixedLength: true, unicode: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+        }
+        
+        public override void Down()
+        {
+            DropForeignKey("dbo.Cities", "CountryId", "dbo.Countries");
+            DropIndex("dbo.Cities", new[] { "CountryId" });
+            DropTable("dbo.Countries");
+            DropTable("dbo.Cities");
+        }
+    }
+}

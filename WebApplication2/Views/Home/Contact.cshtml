@@ -1,0 +1,531 @@
+﻿@using Model
+<!DOCTYPE html>
+@{
+    var StudentList = ViewBag.StudentList as List<ClientVm>;
+    var teacherList = ViewBag.teacherList as List<ClientVm>;
+    var courseList = ViewBag.courseList as List<string>;
+    var AllClient=ViewBag.AllClient as List<ClientVm>;
+}.
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    @*<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>*@
+    <link href="~/Assets/Style/Style.css" rel="stylesheet" />
+    
+</head>
+<body>
+
+    <div class="row header">
+        <br />
+
+        <div class="col-lg-6 PageTitle"> center Data</div>
+
+    </div>
+    <br />
+    <div class="row">
+
+        <button type="button" class="collapsible">Personnal Card</button>
+
+        <div class="content">
+            <div class="row">
+                <div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+                    <div class="well profile">
+                        <div class="col-sm-12">
+                            <div class="col-xs-12 col-sm-3">
+                                <img src="~/Assets/Image/1.jpg" alt="profile" width="100" height="110">
+                            </div>
+                            <div class="col-xs-12 col-sm-9">
+                                <h2>Ahmed Abdallah</h2>
+                                <p><strong>About: </strong> secretary center A </p>
+                                <p>
+                                    <strong>Department: </strong>
+                                    <span class="tags">SC</span>
+                                    <span class="tags">student</span>
+
+                                </p>
+                            </div>
+
+
+
+                        </div>
+                        <div class="col-xs-12 divider text-center">
+                            <div class="col-xs-12 col-sm-4 emphasis">
+                                <h2><strong> 50 </strong></h2>
+                                <p><small>Courses</small></p>
+                                <button class="btn btn-success btn-block"><span class="fa fa-plus-circle"></span> GoTo Courses </button>
+                            </div>
+                            <div class="col-xs-12 col-sm-4 emphasis">
+                               <br/><br/><br/><br/>
+                                <button class="btn btn-info btn-block"><span class="fa fa-user"></span> View Profile </button>
+                                
+                            </div>
+                            <div class="col-xs-12 col-sm-4 emphasis">
+                                <br /><br /><br /><br />
+                                <div class="btn-group dropup btn-block">
+                                    <button type="button" class="btn btn-primary"><span class="fa fa-gear"></span> Mail </button>
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <ul class="dropdown-menu text-left" role="menu">
+                                        <li><a href="#"><span class="fa fa-envelope pull-right"></span> Send an email to student </a></li>
+                                        <li><a href="#"><span class="fa fa-envelope pull-right"></span>Send an email to student </a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#"><span class="fa fa-envelope pull-right"></span>Send an email to manager</a></li>
+                                        <li class="divider"></li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+    </div>
+
+    <br />
+<div class="row">
+<div class="col-lg-12">
+<div class="col-lg-3 col-md-4 col-sm-12 p-2 text-center" id="RightSubLayout">
+    <br />
+    <div class="kt-portlet p-4 Divshadow">
+
+        <br>
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <div class="row">
+                <a class="nav-link btn btn-primary TabButton" id="inviteTab" data-toggle="pill" href="#invite" role="tab" aria-controls="v-pills-invite" aria-selected="true">Invite</a>
+            </div>
+            <br />
+            <div class="row">
+                <a class="nav-link btn btn-primary TabButton" id="allMembersTab" data-toggle="pill" href="#allMembers" role="tab" aria-controls="v-pills-allMembers" aria-selected="false">All Members</a>
+            </div>
+            <br />
+            <div class="row">
+                <a class="nav-link btn btn-primary TabButton" id="teachersTab" data-toggle="pill" href="#teachers" role="tab" aria-controls="v-pills-teachers" aria-selected="false">Teachers</a>
+
+            </div>
+            <br />
+            <div class="row">
+                <a class="nav-link btn btn-primary TabButton" id="studentsTab" data-toggle="pill" href="#students" role="tab" aria-controls="v-pills-students" aria-selected="false">Students</a>
+
+            </div>
+            <br />
+            <div class="row">
+                <a class="nav-link btn btn-primary TabButton" id="MatchingTab" data-toggle="pill" href="#Matching" role="tab" aria-controls="v-pills-Matching" aria-selected="false">Matching</a>
+
+            </div>
+            <br />
+
+        </div>
+
+        <br>
+    </div>
+</div>
+<div class="col-lg-9 col-md-8 col-sm-12 p-2" id="LeftSubLayout">
+<div class="tab-content" id="v-pills-tabContent">
+<div class="tab-pane fade active" id="invite" role="tabpanel" aria-labelledby="v-pills-invite-tab">
+    <br>
+    <div>
+        <form class="Inviteform">
+            <div class="row Input">
+                <br>
+                <br>                <br>
+                <div class="col-lg-4">
+                    <label for="fname">Email:</label>
+                    @Html.TextBox("Email", "", new {@class = "form-control" ,@id= "Email" })
+                    <br><br>
+                </div>
+                <div class="col-lg-4">
+                                        
+                                     
+                                     
+                    @Html.RadioButton("Type", "Teacher") 
+                    <label>Teacher</label>
+                                    
+                    <br/>
+                    @Html.RadioButton("Type", "Student") 
+                    <label>Student</label>
+                </div>
+                <div class="col-lg-4">
+
+                    <button class="btn btn-primary" type="button" onclick="DeleteData()">Send</button>
+
+
+                </div>
+            </div>
+            <br>
+            <br>   <br>
+
+        </form>
+    </div>
+    <br>
+</div>
+<div class="tab-pane fade" id="allMembers" role="tabpanel" aria-labelledby="v-pills-allMembers-tab">
+    <br>
+    <div>
+
+
+
+        <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+            <thead>
+            <tr role="row">
+                <th style="width: 275px;">Image</th>
+                <th style="width: 334px;">Full Name</th>
+                <th style="width: 298px;">Email</th>
+                <th style="width: 237px;">Type</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in AllClient)
+            {
+                                   
+                <tr role="row" class="odd">
+                    <td><img src="~/Assets/Image/1.jpg" alt="profile" width="50" height="50"></td>
+                    <td>
+                        <button type="button" cellspacing="0" data-name="@item.Name" data-email="@item.Email" class="ClientDataBtn" data-toggle="modal" data-target="#myModal">@item.Name</button>  
+                    </td>
+                    <td>@item.Email</td>
+                    <td>
+                        @if (item.type == 1)
+                        {
+                            <label>teacher</label>
+                        }
+                        else
+                        { <label>Student</label>}
+                    </td>
+                </tr>
+            }
+            </tbody>
+
+        </table>
+        <br>  <br>
+    </div>
+    <br>
+</div>
+<div class="tab-pane fade" id="teachers" role="tabpanel" aria-labelledby="v-pills-teachers-tab">
+    <br>
+    <div>
+        <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+            <thead>
+            <tr role="row">
+                <th style="width: 275px;">Image</th>
+                <th style="width: 334px;">Full Name</th>
+                <th style="width: 298px;">Email</th>
+                <th style="width: 237px;">Type</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in teacherList)
+            {
+                <tr role="row" class="odd">
+                    <td><img src="~/Assets/Image/1.jpg" alt="profile" width="50" height="50"></td>
+                    <td>
+                        <button type="button" cellspacing="0" data-name="@item.Name" data-email="@item.Email" class="ClientDataBtn" data-toggle="modal" data-target="#myModal">@item.Name</button>  
+                    </td>
+                    <td>@item.Email</td>
+                    <td>teacher</td>
+
+
+                </tr>
+            }
+            </tbody>
+
+        </table>
+        <br>  <br>
+    </div>
+    <br>
+</div>
+<div class="tab-pane fade" id="students" role="tabpanel" aria-labelledby="v-pills-students-tab">
+    <br>
+    <div>
+
+
+
+        <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+            <thead>
+            <tr role="row">
+                <th style="width: 275px;">Image</th>
+                <th style="width: 334px;">Full Name</th>
+                <th style="width: 298px;">Email</th>
+                <th style="width: 237px;">Type</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in StudentList)
+            {
+                <tr role="row" class="even">
+                    <td><img src="~/Assets/Image/1.jpg" alt="profile" width="50" height="50"></td>
+                    <td>
+                        <button type="button" cellspacing="0" data-name="@item.Name" data-email="@item.Email" class="ClientDataBtn" data-toggle="modal" data-target="#myModal">@item.Name</button>  
+                    </td>
+                    <td>@item.Email</td>
+                    <td>Student</td>
+
+                </tr>
+
+            }
+                                   
+            </tbody>
+
+        </table>
+        <br>  <br>
+    </div>
+    <br>
+</div>
+<div class="tab-pane fade" id="Matching" role="tabpanel" aria-labelledby="v-pills-Matching-tab">
+    <br>
+    <div class="row">
+        <form class="Matchingform Input">
+            <br /><br />
+            <div class="row Input">
+
+                <div class="col-md-3">
+                    <strong><label class="control-label">Courses :</label></strong>
+                    @Html.DropDownList("Courses", new SelectList(courseList), "select course ..", new { @class = "form-control" })
+                                      
+                </div>
+
+                <div class="col-md-3">
+                    <strong><label class="control-label">Teacher :</label></strong>
+                    @Html.DropDownList("Teacher", new SelectList(teacherList , "Key", "Name"), "select teacher ..", new { @class = "form-control" })
+                </div>
+
+                <div class="col-md-4">
+                    
+                    <strong><label class="control-label">student:</label></strong>
+
+
+                    @Html.DropDownList("student", new SelectList(StudentList, "Key", "Name"),   new { @class = "form-control  chosen-select", multiple = "multiple"})
+                     
+                </div>
+
+               
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-md-6">
+                  
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-primary" type="button" onclick="AddNewRow()">Add</button>
+                </div>
+
+            </div>
+            <br />
+            <div class="row Input">
+                <table id="MatchingTabel" class="table table-bordered table-striped MatchingTabel" role="grid" aria-describedby="example1_info">
+                    <thead>
+                    <tr role="row">
+                        <th>#</th>
+                        <th>Subject</th>
+                        <th>Teacher</th>
+                        <th>Student</th>
+                        <th style="width: 100px;"></th> </tr> </thead>
+                    <tbody></tbody>
+
+                </table>
+
+            </div>
+            <br> <br>
+
+            <div class="row SubmitRow">
+                <br><br>
+                <button class="btn btn-primary" type="button">Finish</button>
+                <button class="btn btn-primary" type="button">Cancel</button>
+
+                <br><br>
+            </div>
+            <br>
+
+        </form>
+    </div>
+</div>
+
+
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Client Data</h4>
+            </div>
+            <div class="modal-body">
+                <h4 class="modal-title"></h4>
+                <div id="name"></div>
+                <div id="Email"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="closeModel"  class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+      
+    </div>
+</div>
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+    var CourseData = [];
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        });
+    };
+
+   $(document).ready(function() {
+    $(".chosen-select").chosen();
+    $(".chosen-select").chosen().trigger("chosen:updated");
+    });
+ 
+
+    $(".ClientDataBtn").click(function (e) {
+        debugger;
+        var Name = $(this).attr('data-name');
+        $("#myModal #name").text(Name);
+
+        var Email = $(this).attr('data-email');
+        $("#myModal #Email").text(Email);
+    });
+    $("#closeModel").click(function (e) {
+       
+        $("#myModal #name").text("");
+        
+        $("#myModal #Email").text("");
+    });
+    function DeleteData() {
+        debugger;
+        $("#Email").val("");
+
+
+    };
+    function AddNewRow() {
+        debugger;
+        var tableRows = "";
+        var student = [];
+        var course = $("#Courses :selected").text();
+        var Teacher = $("#Teacher :selected").text();
+        student = $("#student :selected").toArray().map(item => item.text).join().split(",");
+        
+        var Data = {
+            'studentName': $("#student :selected").toArray().map(item => item.text).join().split(","),
+            'studentId': $("#student").val(),
+            'course': $("#Courses :selected").text(),
+            'Teacher': $("#Teacher :selected").text()
+
+        };
+      
+        $.each(Data.studentName, function(index, data) {
+            var object = 
+                { 'course': Data.course, 'Teacher': Data.Teacher, 'studentName': data };
+
+            CourseData.push(object);
+            
+        });
+        //CourseData.push(Data);
+        var rowCount = parseInt($('#MatchingTabel tbody tr').length) + 1;
+        $.each(student,
+            function (index, data) {
+              
+                tableRows += '<tr><td class="index">' +
+                    rowCount+
+                    '</td><td class="course">' +
+                    course+
+                    '</td><td class="Teacher">' +
+                    Teacher+
+                    '</td><td class="student">' +
+                    data +
+                    '</td> <td> <button  id="btn_delete" class="btn btn-default" type="submit"  style="background-color: #f5f5f5; border-color: #f5f5f5;"><i class="fa fa-times fa-3"></i> Delete</button> </td></tr>';
+                rowCount ++;
+            });
+
+
+        $("#MatchingTabel tbody").append(tableRows);
+
+       
+        $("#Courses").val(0);
+        $("#Courses").trigger("chosen:updated");
+        $("#student").val(0);
+        $("#student").trigger("chosen:updated");
+        $("#Teacher").val(0);
+        $("#Teacher").trigger("chosen:updated");
+
+        $("#MatchingTabel tr").delegate("#btn_delete", "click", DeleteRow);
+
+    };
+
+    function DeleteRow() {
+        debugger;
+
+        //var member = $(this).closest("tr"); //tr
+        //member.remove();
+        //$('#MatchingTabel tbody').find('th.index').each(function (index) {
+        //    $(this).html(index + 1);
+        //});
+
+
+        var removecourse = $(this).closest("tr").find(".course").text().trim();
+        var removeTeacher = $(this).closest("tr").find(".Teacher").text().trim();
+        var removestudent = $(this).closest("tr").find(".student").text().trim();
+
+
+        $.each(CourseData,
+            function (index, data) {
+                if (removecourse == data.course && removeTeacher == data.Teacher && removestudent == data.studentName) {
+                    CourseData.splice($.inArray(data, CourseData), 1);
+                    return false;
+                }
+            });
+
+        var tableRows = "";
+        $("#MatchingTabel tbody").html('');
+
+
+        $.each(CourseData,
+            function (index, Data) {              
+                        tableRows += '<tr><td class="index">' +
+                            parseInt(index + 1)  +
+                            '</td><td class="course">' +
+                            Data.course+
+                            '</td><td class="Teacher">' +
+                            Data.Teacher+
+                            '</td><td class="student">' +
+                            Data.studentName +
+                            '</td> <td> <button  id="btn_delete" class="btn btn-default" type="submit"  style="background-color: #f5f5f5; border-color: #f5f5f5;"><i class="fa fa-times fa-3"></i> Delete</button> </td></tr>';
+
+                 
+
+            });
+
+        $("#MatchingTabel tbody").html(tableRows);
+        $("#MatchingTabel tr").delegate("#btn_delete", "click", DeleteRow);
+    };
+    </script>
+
+</body>
+</html>
+
+
